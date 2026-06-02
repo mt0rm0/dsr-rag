@@ -1,51 +1,42 @@
-# Python byte-code files
+# Python
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
 
-# Virtual Environment
-myvenv/
-venv/
-.myvenv/
+# Virtual environment (uv)
 .venv/
 
-# Env variables file
+# Environment variables
 .env
 
-# Data files
+# Data — keep sample_docs, ignore everything else added at runtime
 data/*
-!data/.empty
-!data/sample_docs
+!data/sample_docs/
+!data/sample_docs/*
+
+# Runtime directories
 exports/*
-!exports/.empty
-
-# Logs
+!exports/.gitkeep
 log/*
-!log/.empty
-
-# Local data folders:
-local/
-resources/
-chroma_data/
-bak/
-obsolete/
-vector_db/
-flagged/
-
-# My local files
-my_*
-local_*
+!log/.gitkeep
+vector_db/*
+!vector_db/.gitkeep
 
 # IDE
 .vscode/
+.idea/
 
-# mypy and pytest
+# Test / lint caches
 .mypy_cache/
 .pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
 
-# Compact code, bins
-*.tar
-
-# Other
-todo.txt
-to-do.txt
-tasklist.md
+# OS
+.DS_Store
+Thumbs.db
