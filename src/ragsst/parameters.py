@@ -1,5 +1,8 @@
+import os
 from os import getenv
 from urllib.parse import urljoin
+
+os.environ['ANONYMIZED_TELEMETRY'] = 'False'
 
 # ---------------------------------------------------------------------------
 # Documents

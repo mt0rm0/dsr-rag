@@ -35,18 +35,14 @@ def make_interface(ragsst: RAGTool) -> Any:
         inputs=gr.Textbox(label='Query'),
         outputs=gr.Textbox(label='Answer', lines=14),
         description='Query an LLM about information from your documents.',
-        allow_flagging='manual',
-        flagging_dir=os.path.join(p.EXPORT_PATH, 'rag_query'),
-        flagging_options=[('Export', 'export')],
         additional_inputs=[
-            gr.Slider(0, 1,  value=0.5, step=0.1, label='Relevance threshold', info=pinfo['Rth']),
-            gr.Slider(1, 5,  value=3,   step=1,   label='Top n results',       info=pinfo['TopnR']),
-            gr.Slider(1, 10, value=5,   step=1,   label='Top k',               info=pinfo['Top k']),
+            gr.Slider(0, 1,   value=0.5, step=0.1, label='Relevance threshold', info=pinfo['Rth']),
+            gr.Slider(1, 5,   value=3,   step=1,   label='Top n results',       info=pinfo['TopnR']),
+            gr.Slider(1, 10,  value=5,   step=1,   label='Top k',               info=pinfo['Top k']),
             gr.Slider(0.1, 1, value=0.9, step=0.1, label='Top p', info=pinfo['Top p'], visible=False),
-            gr.Slider(0.1, 1, value=0.3, step=0.1, label='Temp',               info=pinfo['Temp']),
+            gr.Slider(0.1, 1, value=0.3, step=0.1, label='Temp',                info=pinfo['Temp']),
         ],
         additional_inputs_accordion=gr.Accordion(label='Settings', open=False),
-        clear_btn=None,
     )
 
     # ------------------------------------------------------------------
@@ -57,52 +53,42 @@ def make_interface(ragsst: RAGTool) -> Any:
         inputs=gr.Textbox(label='Query'),
         outputs=gr.Textbox(label='Related Content', lines=20),
         description='Find information in your documents.',
-        allow_flagging='manual',
-        flagging_dir=os.path.join(p.EXPORT_PATH, 'semantic_retrieval'),
-        flagging_options=[('Export', 'export')],
         additional_inputs=[
             gr.Slider(1, 5, value=3,   step=1,   label='Top n results',       info=pinfo['TopnR']),
             gr.Slider(0, 1, value=0.5, step=0.1, label='Relevance threshold', info=pinfo['Rth']),
         ],
         additional_inputs_accordion=gr.Accordion(label='Retrieval Settings', open=False),
-        clear_btn=None,
     )
 
     # ------------------------------------------------------------------
     # RAG Chat tab
     # ------------------------------------------------------------------
-    with gr.ChatInterface(
+    rag_chat_ui = gr.ChatInterface(
         ragsst.rag_chat,
         description='Query and interact with an LLM considering your documents.',
-        chatbot=gr.Chatbot(height=500),
         additional_inputs=[
-            gr.Slider(0, 1,  value=0.5, step=0.1, label='Relevance threshold', info=pinfo['Rth']),
-            gr.Slider(1, 5,  value=3,   step=1,   label='Top n results',       info=pinfo['TopnR']),
-            gr.Slider(1, 10, value=5,   step=1,   label='Top k',               info=pinfo['Top k']),
+            gr.Slider(0, 1,   value=0.5, step=0.1, label='Relevance threshold', info=pinfo['Rth']),
+            gr.Slider(1, 5,   value=3,   step=1,   label='Top n results',       info=pinfo['TopnR']),
+            gr.Slider(1, 10,  value=5,   step=1,   label='Top k',               info=pinfo['Top k']),
             gr.Slider(0.1, 1, value=0.9, step=0.1, label='Top p', info=pinfo['Top p'], visible=False),
-            gr.Slider(0.1, 1, value=0.3, step=0.1, label='Temp',               info=pinfo['Temp']),
+            gr.Slider(0.1, 1, value=0.3, step=0.1, label='Temp',                info=pinfo['Temp']),
         ],
         additional_inputs_accordion=gr.Accordion(label='Settings', open=False),
-        undo_btn=None,
-    ) as rag_chat_ui:
-        rag_chat_ui.clear_btn.click(ragsst.clear_ragchat_hist)
+    )
 
     # ------------------------------------------------------------------
     # Plain Chat tab
     # ------------------------------------------------------------------
-    with gr.ChatInterface(
+    chat_ui = gr.ChatInterface(
         ragsst.chat,
         description='Chat with the LLM directly, without document context.',
-        chatbot=gr.Chatbot(height=500),
         additional_inputs=[
-            gr.Slider(1, 10, value=5,   step=1,   label='Top k', info=pinfo['Top k']),
+            gr.Slider(1, 10,  value=5,   step=1,   label='Top k', info=pinfo['Top k']),
             gr.Slider(0.1, 1, value=0.9, step=0.1, label='Top p', info=pinfo['Top p']),
             gr.Slider(0.1, 1, value=0.5, step=0.1, label='Temp',  info=pinfo['Temp']),
         ],
         additional_inputs_accordion=gr.Accordion(label='LLM Settings', open=False),
-        undo_btn=None,
-    ) as chat_ui:
-        chat_ui.clear_btn.click(ragsst.clear_chat_hist)
+    )
 
     # ------------------------------------------------------------------
     # Config tab
