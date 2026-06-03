@@ -1,5 +1,12 @@
 """Core RAGTool class — vector store management, retrieval, and LLM interaction."""
 
+import warnings
+
+from tqdm import TqdmExperimentalWarning
+
+warnings.filterwarnings("ignore", category=TqdmExperimentalWarning)
+
+
 import os
 
 os.environ["ANONYMIZED_TELEMETRY"] = "False"
@@ -404,21 +411,32 @@ class RAGTool:
     # Utility / GUI helpers
     # =========================================================================
 
-    def setup_vec_store(self, collection_name: str = p.COLLECTION_NAME) -> None:
+    def setup_vec_store(self, collection_name: str | None = None) -> None:
         """Initialise the vector store on startup.
 
         If *data_path* contains documents and the vector DB is empty, ingests
-        them automatically. Otherwise loads the first available collection.
+        them automatically. Otherwise loads the requested collection by name,
+        falling back to the first available collection if it does not exist.
         """
+        if collection_name is None:
+            collection_name = self.collection_name
         if self._check_initdb_conditions():
             self.make_collection(self.data_path, collection_name)
         else:
             collections = self.vs_client.list_collections()
             if collections:
                 logger.info(f"Available collections: {self.list_collections_names_with_info()}")
+                # Honour the requested name; fall back to first if not found
+                match = next((c for c in collections if c.name == collection_name), None)
+                target = match or collections[0]
+                if match is None:
+                    logger.warning(
+                        f"Collection '{collection_name}' not found — "
+                        f"loading '{target.name}' instead."
+                    )
                 self.set_collection(
-                    collections[0].name,
-                    collections[0].metadata.get("embedding_model"),
+                    target.name,
+                    target.metadata.get("embedding_model"),
                 )
                 if not self.collection.peek(limit=1).get("ids"):
                     logger.info("Collection is empty. Populate it or choose another one.")

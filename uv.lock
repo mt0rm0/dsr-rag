@@ -1068,6 +1068,7 @@ dependencies = [
     { name = "ipywidgets" },
     { name = "jupyter" },
     { name = "numpy" },
+    { name = "posthog" },
     { name = "pypdf" },
     { name = "python-docx" },
     { name = "requests" },
@@ -1086,6 +1087,14 @@ bonus = [
     { name = "llama-index-llms-ollama" },
     { name = "rank-bm25" },
 ]
+bonus-a = [
+    { name = "langchain" },
+    { name = "langchain-chroma" },
+    { name = "langchain-community" },
+    { name = "llama-index" },
+    { name = "llama-index-embeddings-huggingface" },
+    { name = "llama-index-llms-ollama" },
+]
 dev = [
     { name = "pytest" },
     { name = "pytest-cov" },
@@ -1101,12 +1110,19 @@ requires-dist = [
     { name = "ipywidgets", specifier = ">=8.1.8" },
     { name = "jupyter", specifier = ">=1.1.1" },
     { name = "langchain", marker = "extra == 'bonus'", specifier = ">=0.2.0" },
+    { name = "langchain", marker = "extra == 'bonus-a'", specifier = ">=0.3.30" },
     { name = "langchain-chroma", marker = "extra == 'bonus'", specifier = ">=0.1.0" },
+    { name = "langchain-chroma", marker = "extra == 'bonus-a'", specifier = ">=0.2.2" },
     { name = "langchain-community", marker = "extra == 'bonus'", specifier = ">=0.2.0" },
+    { name = "langchain-community", marker = "extra == 'bonus-a'", specifier = ">=0.3.21" },
     { name = "llama-index", marker = "extra == 'bonus'", specifier = ">=0.10.0" },
+    { name = "llama-index", marker = "extra == 'bonus-a'", specifier = ">=0.14.22" },
     { name = "llama-index-embeddings-huggingface", marker = "extra == 'bonus'", specifier = ">=0.1.0" },
+    { name = "llama-index-embeddings-huggingface", marker = "extra == 'bonus-a'", specifier = ">=0.7.0" },
     { name = "llama-index-llms-ollama", marker = "extra == 'bonus'", specifier = ">=0.1.0" },
+    { name = "llama-index-llms-ollama", marker = "extra == 'bonus-a'", specifier = ">=0.10.1" },
     { name = "numpy", specifier = "==1.26.4" },
+    { name = "posthog", specifier = ">=2.4.0,<6.0.0" },
     { name = "pypdf", specifier = "==4.2.0" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0.0" },
     { name = "pytest-cov", marker = "extra == 'dev'", specifier = ">=5.0.0" },
@@ -1118,7 +1134,7 @@ requires-dist = [
     { name = "tqdm", specifier = "==4.66.4" },
     { name = "yake", specifier = "==0.4.8" },
 ]
-provides-extras = ["bonus", "dev"]
+provides-extras = ["bonus", "dev", "bonus-a"]
 
 [[package]]
 name = "durationpy"
@@ -3804,17 +3820,18 @@ wheels = [
 
 [[package]]
 name = "posthog"
-version = "7.16.3"
+version = "5.4.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "backoff" },
     { name = "distro" },
+    { name = "python-dateutil" },
     { name = "requests" },
-    { name = "typing-extensions" },
+    { name = "six" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/20/d4/6e1c24823c515683cb6f74bd1dcc3fbe55f60a27743c1694bdc61c5db5d0/posthog-7.16.3.tar.gz", hash = "sha256:ff8972813c836ae4fcb634b499cf06d643bc3c4f49931218fe142e7aa8a39810", size = 226535, upload-time = "2026-06-01T13:24:07.781Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/48/20/60ae67bb9d82f00427946218d49e2e7e80fb41c15dc5019482289ec9ce8d/posthog-5.4.0.tar.gz", hash = "sha256:701669261b8d07cdde0276e5bc096b87f9e200e3b9589c5ebff14df658c5893c", size = 88076, upload-time = "2025-06-20T23:19:23.485Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/f9/0b/562afe6f037ab3dde06d2bbe33f1de9f8516ac22f882ad263e4e0bfb665b/posthog-7.16.3-py3-none-any.whl", hash = "sha256:f0cbaf25ac06211b87c0a43500673fa2d8de86eb1edb75b8bf688f1b884878ce", size = 264300, upload-time = "2026-06-01T13:24:06.074Z" },
+    { url = "https://files.pythonhosted.org/packages/4f/98/e480cab9a08d1c09b1c59a93dade92c1bb7544826684ff2acbfd10fcfbd4/posthog-5.4.0-py3-none-any.whl", hash = "sha256:284dfa302f64353484420b52d4ad81ff5c2c2d1d607c4e2db602ac72761831bd", size = 105364, upload-time = "2025-06-20T23:19:22.001Z" },
 ]
 
 [[package]]

@@ -1,3 +1,11 @@
-Available collections: my_docs (multi-qa-mpnet-base-cos-v1)
-Set collection: my_docs. Embedding model: multi-qa-mpnet-base-cos-v1
-Collection is empty. Populate it or choose another one.
+Available collections: my_docs (multi-qa-mpnet-base-cos-v1), workshop_docs (multi-qa-mpnet-base-cos-v1)
+Set collection: workshop_docs. Embedding model: multi-qa-mpnet-base-cos-v1
+Sources: aihpi-home.txt
+Sources: aihpi-home.txt
+Sources: die-hard.txt
+Sources: aihpi-home.txt
+Sources: aihpi-home.txt
+Sources: die-hard.txt
+Sources: die-hard.txt
+Sources: sherlock.pdf, wild-tales.txt
+Sources: die-hard.txt, wild-tales.txt

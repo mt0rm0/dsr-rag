@@ -2,6 +2,7 @@
 
 import hashlib
 import os
+import re
 from typing import List, Tuple
 
 from docx import Document
@@ -86,10 +87,13 @@ def hash_file(filename: str, block_size: int = 128 * 64) -> str:
 # ---------------------------------------------------------------------------
 
 def split_text_basic(text: str, max_words: int = 256) -> List[str]:
-    """Split *text* into chunks of at most *max_words* words.
+    """Split *text* into fixed-size chunks of at most *max_words* words.
 
-    Simple line-based splitter with no context awareness. Useful as a
-    baseline for comparing against the smarter :func:`split_text`.
+    Tokenises the entire text at the word level, then packs words into
+    chunks. This guarantees that every chunk is within *max_words* words,
+    even when individual lines are longer than the limit. Whitespace
+    structure is not preserved — this is a pure word-count splitter useful
+    as a baseline.
 
     Args:
         text:      Input text.
@@ -97,20 +101,18 @@ def split_text_basic(text: str, max_words: int = 256) -> List[str]:
 
     Returns:
         List of non-empty text chunks.
+
+    Example::
+
+        >>> chunks = split_text_basic("one two three four five", max_words=3)
+        >>> chunks
+        ['one two three', 'four five']
     """
-    lines = [line for line in text.splitlines(True) if line.strip()]
-    chunks: List[str] = []
-    chunk = ''
-    for line in lines:
-        if len(chunk.split()) + len(line.split()) <= max_words:
-            chunk += line
-        else:
-            if chunk:
-                chunks.append(chunk)
-            chunk = line
-    if chunk:
-        chunks.append(chunk)
-    return chunks
+    words = text.split()
+    return [
+        ' '.join(words[i:i + max_words])
+        for i in range(0, len(words), max_words)
+    ]
 
 
 def split_text(text: str, max_words: int = 256, max_title_words: int = 4) -> List[str]:
@@ -163,5 +165,144 @@ def split_text(text: str, max_words: int = 256, max_title_words: int = 4) -> Lis
 
     if chunk:
         chunks.append('\n'.join(chunk))
+
+    return chunks
+
+
+def split_text_sliding_window(
+    text: str,
+    max_words: int = 256,
+    overlap: int = 32,
+) -> List[str]:
+    """Split *text* into overlapping fixed-size word chunks.
+
+    Adjacent chunks share *overlap* words, so a sentence that falls near a
+    chunk boundary appears in both neighbours. This reduces the chance of
+    splitting a relevant passage across two chunks that are never retrieved
+    together.
+
+    Args:
+        text:      Input text.
+        max_words: Number of words per chunk.
+        overlap:   Number of words shared between consecutive chunks.
+                   Must be less than *max_words*.
+
+    Returns:
+        List of non-empty text chunks.
+
+    Example::
+
+        >>> chunks = split_text_sliding_window("a b c d e f", max_words=4, overlap=2)
+        >>> chunks
+        ['a b c d', 'c d e f']
+    """
+    if overlap >= max_words:
+        raise ValueError('overlap must be less than max_words')
+
+    words = text.split()
+    step = max_words - overlap
+    return [
+        ' '.join(words[i:i + max_words])
+        for i in range(0, len(words), step)
+        if words[i:i + max_words]
+    ]
+
+
+def split_text_sentences(
+    text: str,
+    max_words: int = 256,
+    overlap_sentences: int = 1,
+) -> List[str]:
+    """Split *text* into chunks that respect sentence boundaries.
+
+    Sentences are packed into a chunk until adding the next sentence would
+    exceed *max_words*. The last *overlap_sentences* sentences of each chunk
+    are prepended to the next one to preserve local context across boundaries.
+
+    Args:
+        text:               Input text.
+        max_words:          Maximum number of words per chunk.
+        overlap_sentences:  Number of sentences from the end of each chunk
+                            to repeat at the start of the next. Set to 0 to
+                            disable overlap.
+
+    Returns:
+        List of non-empty text chunks.
+    """
+    # Split on sentence-ending punctuation followed by whitespace or end-of-string
+    sentence_endings = re.compile(r'(?<=[.!?])\s+')
+    sentences = [s.strip() for s in sentence_endings.split(text) if s.strip()]
+
+    chunks: List[str] = []
+    current: List[str] = []
+    current_words = 0
+
+    for sentence in sentences:
+        sentence_words = len(sentence.split())
+
+        # If a single sentence exceeds the limit, emit it as its own chunk
+        if sentence_words > max_words:
+            if current:
+                chunks.append(' '.join(current))
+                current = current[-overlap_sentences:] if overlap_sentences else []
+                current_words = sum(len(s.split()) for s in current)
+            chunks.append(sentence)
+            continue
+
+        if current_words + sentence_words > max_words:
+            chunks.append(' '.join(current))
+            current = current[-overlap_sentences:] if overlap_sentences else []
+            current_words = sum(len(s.split()) for s in current)
+
+        current.append(sentence)
+        current_words += sentence_words
+
+    if current:
+        chunks.append(' '.join(current))
+
+    return chunks
+
+
+def split_text_paragraphs(
+    text: str,
+    max_words: int = 256,
+) -> List[str]:
+    """Split *text* into chunks that respect paragraph boundaries.
+
+    Paragraphs (separated by one or more blank lines) are packed together
+    until adding the next paragraph would exceed *max_words*. A paragraph
+    that is itself longer than *max_words* is emitted as its own chunk
+    without further splitting.
+
+    This strategy works well for structured documents (articles, books)
+    where paragraphs already represent coherent units of thought.
+
+    Args:
+        text:      Input text.
+        max_words: Soft maximum number of words per chunk.
+
+    Returns:
+        List of non-empty text chunks.
+    """
+    paragraphs = [p.strip() for p in re.split(r'\n\s*\n', text) if p.strip()]
+
+    chunks: List[str] = []
+    current: List[str] = []
+    current_words = 0
+
+    for para in paragraphs:
+        para_words = len(para.split())
+
+        if current_words + para_words > max_words:
+            if current:
+                chunks.append('\n\n'.join(current))
+                current = []
+                current_words = 0
+
+        current.append(para)
+        current_words += para_words
+
+    if current:
+        chunks.append('\n\n'.join(current))
 
     return chunks

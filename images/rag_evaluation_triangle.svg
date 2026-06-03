@@ -1,0 +1,42 @@
+<svg width="680" height="360" viewBox="0 0 680 360" xmlns="http://www.w3.org/2000/svg" role="img">
+  <title>RAG evaluation triangle: Faithful, Relevant, Accurate</title>
+  <desc>An equilateral triangle with Faithful at the top vertex, Relevant at bottom-left, and Accurate at bottom-right.</desc>
+
+  <style>
+    text { font-family: sans-serif; }
+    .th { font-size: 14px; font-weight: 500; fill: #3C3489; }
+    .teal .th { fill: #085041; }
+    .amber .th { fill: #633806; }
+    .purple rect { fill: #EEEDFE; stroke: #534AB7; }
+    .teal rect { fill: #E1F5EE; stroke: #0F6E56; }
+    .amber rect { fill: #FAEEDA; stroke: #854F0B; }
+  </style>
+
+  <!-- Triangle edges -->
+  <line x1="340" y1="60" x2="140" y2="300" stroke="#888" stroke-width="1" opacity="0.35"/>
+  <line x1="340" y1="60" x2="540" y2="300" stroke="#888" stroke-width="1" opacity="0.35"/>
+  <line x1="140" y1="300" x2="540" y2="300" stroke="#888" stroke-width="1" opacity="0.35"/>
+
+  <!-- Vertex dots -->
+  <circle cx="340" cy="60"  r="4" fill="#888" opacity="0.5"/>
+  <circle cx="140" cy="300" r="4" fill="#888" opacity="0.5"/>
+  <circle cx="540" cy="300" r="4" fill="#888" opacity="0.5"/>
+
+  <!-- Faithful — top -->
+  <g class="purple">
+    <rect x="272" y="22" width="136" height="40" rx="8" stroke-width="0.5"/>
+    <text class="th" x="340" y="47" text-anchor="middle">Faithful</text>
+  </g>
+
+  <!-- Relevant — bottom left -->
+  <g class="teal">
+    <rect x="56" y="298" width="116" height="40" rx="8" stroke-width="0.5"/>
+    <text class="th teal" x="114" y="323" text-anchor="middle">Relevant</text>
+  </g>
+
+  <!-- Accurate — bottom right -->
+  <g class="amber">
+    <rect x="508" y="298" width="116" height="40" rx="8" stroke-width="0.5"/>
+    <text class="th amber" x="566" y="323" text-anchor="middle">Accurate</text>
+  </g>
+</svg>
