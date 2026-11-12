@@ -1,0 +1,37 @@
+Nordlicht Data GmbH
+Employee Handbook
+
+This handbook collects the internal policies of Nordlicht Data GmbH, a fictional analytics company used as a sample document for this workshop. Policies apply to all permanent staff unless stated otherwise.
+
+Office Attendance
+Our offices in Potsdam and Hamburg are open from 7:00 to 20:00 on working days. Every team has two shared team days per week, Tuesday and Thursday, on which members are expected on site for planning, reviews and lunch together. Visitors must be registered at reception one day in advance. Desks are not assigned; book a desk through the room planner in the intranet.
+
+Distributed Working Arrangement
+Staff may perform their duties away from company premises for up to three days per week, provided their role allows it and their manager agrees. The arrangement must be requested with form DWA-2 and is reviewed every six months. Employees working away from the premises remain reachable during core hours from 10:00 to 15:00. A monthly allowance of 20 euros covers internet costs. Working from abroad is limited to 15 days per calendar year because of tax and social security rules.
+
+Travel Policy 2023 (superseded)
+This version applied to trips booked before 1 January 2024. Train journeys were booked in second class. The daily allowance for meals was 24 euros. Hotel costs were reimbursed up to 110 euros per night. Flights were only permitted for journeys longer than eight hours by train. Taxis required written approval.
+
+Travel Policy 2024
+This version applies to all trips booked from 1 January 2024 onwards. Train journeys longer than four hours may be booked in first class. The daily allowance for meals is 28 euros. Hotel costs are reimbursed up to 135 euros per night, or 160 euros in Munich, Frankfurt and Paris. Domestic flights are not reimbursed. Taxis are allowed after 22:00 or when carrying equipment.
+
+Expense Reimbursement
+Receipts must be uploaded to the Spesenportal within 30 days after the end of the trip or purchase. Late submissions are only accepted with approval from the finance team. Reimbursements are paid with the next monthly salary. Lost receipts can be replaced by a signed self-declaration for amounts below 50 euros.
+
+Hardware Catalogue
+New employees choose one of two standard laptops. The NL-X14 is a lightweight 14 inch notebook with 32 GB of memory, suited for office work, analytics and presentations. The NL-W16 is a 16 inch mobile workstation with 64 GB of memory and an NVIDIA RTX graphics card, intended for people who train models locally. Monitors, docking stations and headsets can be ordered through the IT shop. Hardware is replaced every four years.
+
+Compute Cluster Access
+Large training jobs run on Fjord, the internal cluster with 16 nodes of 8 accelerators each. Reservations are made by opening a ticket in the OPS-RES queue, stating the number of nodes and the expected runtime. Slots are granted in blocks of four hours. Interactive sessions longer than one block are not allowed; use batch jobs instead. Unused reservations are released after 30 minutes.
+
+Family Leave
+In addition to statutory parental leave, Nordlicht grants the second parent 20 working days of fully paid leave within the first year after a birth or adoption. The primary caregiver receives a top-up to 100 percent of net salary during the statutory protection period. Requests are submitted to HR at least eight weeks before the planned start.
+
+Security Incidents
+If you suspect that you opened a phishing mail, clicked a suspicious link or lost a device, contact the CERT immediately through the hotline on the back of your badge. Do not try to investigate on your own and do not forward the suspicious message to colleagues. The CERT is reachable around the clock. Every incident is reviewed without blame.
+
+Onboarding Buddy Programme
+Every new employee is paired with a buddy from a different team for the first three months. Buddies meet at least every two weeks and introduce the newcomer to people, tools and unwritten rules. Buddies receive one day of extra leave per completed buddy period.
+
+Office Kitchen
+Coffee, tea and fruit are free in all offices. Please clean up after yourself and empty the fridge every Friday. The kitchen is cleaned by an external service on Monday and Wednesday evenings.

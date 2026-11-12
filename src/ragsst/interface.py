@@ -22,9 +22,9 @@ def make_interface(ragsst: RAGTool) -> Any:
     pinfo = {
         'Rth':   'Set the relevance level for the content retrieval',
         'TopnR': 'Select the maximum number of passages to retrieve',
-        'Top k': 'LLM parameter — higher values produce more varied text',
-        'Top p': 'LLM parameter — higher values produce more varied text',
-        'Temp':  'LLM parameter — higher values increase answer randomness',
+        'Top k': 'LLM parameter: higher values produce more varied text',
+        'Top p': 'LLM parameter: higher values produce more varied text',
+        'Temp':  'LLM parameter: higher values increase answer randomness',
     }
 
     # ------------------------------------------------------------------
@@ -36,11 +36,13 @@ def make_interface(ragsst: RAGTool) -> Any:
         outputs=gr.Textbox(label='Answer', lines=14),
         description='Query an LLM about information from your documents.',
         additional_inputs=[
-            gr.Slider(0, 1,   value=0.5, step=0.1, label='Relevance threshold', info=pinfo['Rth']),
-            gr.Slider(1, 5,   value=3,   step=1,   label='Top n results',       info=pinfo['TopnR']),
-            gr.Slider(1, 10,  value=5,   step=1,   label='Top k',               info=pinfo['Top k']),
-            gr.Slider(0.1, 1, value=0.9, step=0.1, label='Top p', info=pinfo['Top p'], visible=False),
-            gr.Slider(0.1, 1, value=0.3, step=0.1, label='Temp',                info=pinfo['Temp']),
+            gr.Slider(0, 1, value=0.5, step=0.1, label='Relevance threshold', info=pinfo['Rth']),
+            gr.Slider(1, 5, value=3, step=1, label='Top n results', info=pinfo['TopnR']),
+            gr.Slider(1, 10, value=5, step=1, label='Top k', info=pinfo['Top k']),
+            gr.Slider(
+                0.1, 1, value=0.9, step=0.1, label='Top p', info=pinfo['Top p'], visible=False
+            ),
+            gr.Slider(0.1, 1, value=0.3, step=0.1, label='Temp', info=pinfo['Temp']),
         ],
         additional_inputs_accordion=gr.Accordion(label='Settings', open=False),
     )
@@ -54,7 +56,7 @@ def make_interface(ragsst: RAGTool) -> Any:
         outputs=gr.Textbox(label='Related Content', lines=20),
         description='Find information in your documents.',
         additional_inputs=[
-            gr.Slider(1, 5, value=3,   step=1,   label='Top n results',       info=pinfo['TopnR']),
+            gr.Slider(1, 5, value=3, step=1, label='Top n results', info=pinfo['TopnR']),
             gr.Slider(0, 1, value=0.5, step=0.1, label='Relevance threshold', info=pinfo['Rth']),
         ],
         additional_inputs_accordion=gr.Accordion(label='Retrieval Settings', open=False),
@@ -67,11 +69,13 @@ def make_interface(ragsst: RAGTool) -> Any:
         ragsst.rag_chat,
         description='Query and interact with an LLM considering your documents.',
         additional_inputs=[
-            gr.Slider(0, 1,   value=0.5, step=0.1, label='Relevance threshold', info=pinfo['Rth']),
-            gr.Slider(1, 5,   value=3,   step=1,   label='Top n results',       info=pinfo['TopnR']),
-            gr.Slider(1, 10,  value=5,   step=1,   label='Top k',               info=pinfo['Top k']),
-            gr.Slider(0.1, 1, value=0.9, step=0.1, label='Top p', info=pinfo['Top p'], visible=False),
-            gr.Slider(0.1, 1, value=0.3, step=0.1, label='Temp',                info=pinfo['Temp']),
+            gr.Slider(0, 1, value=0.5, step=0.1, label='Relevance threshold', info=pinfo['Rth']),
+            gr.Slider(1, 5, value=3, step=1, label='Top n results', info=pinfo['TopnR']),
+            gr.Slider(1, 10, value=5, step=1, label='Top k', info=pinfo['Top k']),
+            gr.Slider(
+                0.1, 1, value=0.9, step=0.1, label='Top p', info=pinfo['Top p'], visible=False
+            ),
+            gr.Slider(0.1, 1, value=0.3, step=0.1, label='Temp', info=pinfo['Temp']),
         ],
         additional_inputs_accordion=gr.Accordion(label='Settings', open=False),
     )
@@ -83,9 +87,9 @@ def make_interface(ragsst: RAGTool) -> Any:
         ragsst.chat,
         description='Chat with the LLM directly, without document context.',
         additional_inputs=[
-            gr.Slider(1, 10,  value=5,   step=1,   label='Top k', info=pinfo['Top k']),
+            gr.Slider(1, 10, value=5, step=1, label='Top k', info=pinfo['Top k']),
             gr.Slider(0.1, 1, value=0.9, step=0.1, label='Top p', info=pinfo['Top p']),
-            gr.Slider(0.1, 1, value=0.5, step=0.1, label='Temp',  info=pinfo['Temp']),
+            gr.Slider(0.1, 1, value=0.5, step=0.1, label='Temp', info=pinfo['Temp']),
         ],
         additional_inputs_accordion=gr.Accordion(label='LLM Settings', open=False),
     )
@@ -123,7 +127,10 @@ def make_interface(ragsst: RAGTool) -> Any:
                     with gr.Column():
                         collection_choices = ragsst.list_collections_names()
                         collection_name = gr.Dropdown(
-                            info='Choose a collection or type a name to create a new one (no spaces)',
+                            info=(
+                                'Choose a collection or type a name to create a new one '
+                                '(no spaces)'
+                            ),
                             choices=collection_choices,
                             allow_custom_value=True,
                             value=ragsst.collection_name,
@@ -141,7 +148,9 @@ def make_interface(ragsst: RAGTool) -> Any:
                                 if current_value in local_collections
                                 else (local_collections[0] if local_collections else None)
                             )
-                            return gr.Dropdown(choices=local_collections, value=default, interactive=True)
+                            return gr.Dropdown(
+                                choices=local_collections, value=default, interactive=True
+                            )
 
                 emb_model = gr.Dropdown(
                     choices=p.EMBEDDING_MODELS,

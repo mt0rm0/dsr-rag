@@ -8,8 +8,8 @@ def main() -> None:
     tool = RAGTool()
     tool.setup_vec_store()
     gui = make_interface(tool)
-    gui.launch(show_api=False)
+    gui.launch(footer_links=["gradio", "settings"])
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
