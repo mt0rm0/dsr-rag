@@ -1,7 +1,6 @@
 """Command-line RAG interface."""
 
 from ragsst.ragtool import RAGTool
-import ragsst.parameters as p
 
 
 def main() -> None:

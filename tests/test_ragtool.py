@@ -1,4 +1,4 @@
-"""Tests for ragsst.ragtool — RAGTool core methods."""
+"""Tests for ragsst.ragtool: RAGTool core methods."""
 
 from collections import deque
 from unittest.mock import MagicMock, patch
@@ -6,7 +6,6 @@ from unittest.mock import MagicMock, patch
 import pytest
 
 from ragsst.ragtool import RAGTool
-
 
 # ---------------------------------------------------------------------------
 # Fixtures
