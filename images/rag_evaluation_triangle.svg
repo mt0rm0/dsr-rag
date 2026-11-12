@@ -22,19 +22,19 @@
   <circle cx="140" cy="300" r="4" fill="#888" opacity="0.5"/>
   <circle cx="540" cy="300" r="4" fill="#888" opacity="0.5"/>
 
-  <!-- Faithful — top -->
+  <!-- Faithful: top -->
   <g class="purple">
     <rect x="272" y="22" width="136" height="40" rx="8" stroke-width="0.5"/>
     <text class="th" x="340" y="47" text-anchor="middle">Faithful</text>
   </g>
 
-  <!-- Relevant — bottom left -->
+  <!-- Relevant: bottom left -->
   <g class="teal">
     <rect x="56" y="298" width="116" height="40" rx="8" stroke-width="0.5"/>
     <text class="th teal" x="114" y="323" text-anchor="middle">Relevant</text>
   </g>
 
-  <!-- Accurate — bottom right -->
+  <!-- Accurate: bottom right -->
   <g class="amber">
     <rect x="508" y="298" width="116" height="40" rx="8" stroke-width="0.5"/>
     <text class="th amber" x="566" y="323" text-anchor="middle">Accurate</text>
