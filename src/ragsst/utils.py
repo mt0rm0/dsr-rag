@@ -8,7 +8,6 @@ from typing import List, Tuple
 from docx import Document
 from pypdf import PdfReader
 
-
 # ---------------------------------------------------------------------------
 # File listing
 # ---------------------------------------------------------------------------
@@ -92,7 +91,7 @@ def split_text_basic(text: str, max_words: int = 256) -> List[str]:
     Tokenises the entire text at the word level, then packs words into
     chunks. This guarantees that every chunk is within *max_words* words,
     even when individual lines are longer than the limit. Whitespace
-    structure is not preserved — this is a pure word-count splitter useful
+    structure is not preserved; this is a pure word-count splitter useful
     as a baseline.
 
     Args:

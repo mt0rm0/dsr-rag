@@ -1,8 +1,6 @@
-"""Tests for ragsst.utils — chunking and file I/O."""
+"""Tests for ragsst.utils: chunking and file I/O."""
 
-import pytest
 from ragsst.utils import list_files, read_file, split_text, split_text_basic
-
 
 # ---------------------------------------------------------------------------
 # split_text

@@ -7,7 +7,7 @@ set -euo pipefail
 
 echo "==> Checking uv..."
 if ! command -v uv &>/dev/null; then
-    echo "    uv not found — installing..."
+    echo "    uv not found, installing..."
     curl -LsSf https://astral.sh/uv/install.sh | sh
     export PATH="$HOME/.local/bin:$PATH"
 fi
@@ -21,15 +21,15 @@ echo "    Dependencies installed."
 echo ""
 echo "==> Checking Ollama..."
 if ! command -v ollama &>/dev/null; then
-    echo "    Ollama not found — installing..."
+    echo "    Ollama not found, installing..."
     curl -fsSL https://ollama.com/install.sh | sh
 else
     echo "    Ollama already installed."
 fi
 
 echo ""
-echo "==> Pulling default LLM (llama3.2)..."
-ollama pull llama3.2
+echo "==> Pulling default LLM (llama3.2:3b)..."
+ollama pull llama3.2:3b
 
 echo ""
 echo "============================================================"

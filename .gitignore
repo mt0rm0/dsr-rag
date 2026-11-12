@@ -13,10 +13,12 @@ build/
 # Environment variables
 .env
 
-# Data — keep sample_docs, ignore everything else added at runtime
+# Data: keep sample_docs, the gold set and examples; ignore everything else added at runtime
 data/*
 !data/sample_docs/
 !data/sample_docs/*
+!data/gold_dataset.json
+!data/examples/
 
 # Runtime directories
 exports/*
@@ -25,6 +27,11 @@ log/*
 !log/.gitkeep
 vector_db/*
 !vector_db/.gitkeep
+# Created when the notebooks run from notebooks/
+notebooks/vector_db/
+notebooks/log/
+# Gradio writes a tunnel certificate here when share=True is used
+.gradio/
 
 # IDE
 .vscode/
