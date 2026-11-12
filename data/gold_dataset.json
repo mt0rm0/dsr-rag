@@ -1,0 +1,62 @@
+[
+  {
+    "question": "Am I allowed to fly from Berlin to Munich for a client meeting?",
+    "expected_fragment": "Domestic flights are not reimbursed",
+    "source": "nordlicht-handbook.txt"
+  },
+  {
+    "question": "How much can I spend on a hotel in Paris?",
+    "expected_fragment": "160 euros",
+    "source": "nordlicht-handbook.txt"
+  },
+  {
+    "question": "What is the per diem?",
+    "expected_fragment": "28 euros",
+    "source": "nordlicht-handbook.txt"
+  },
+  {
+    "question": "Can I work from Spain for a month?",
+    "expected_fragment": "15 days",
+    "source": "nordlicht-handbook.txt"
+  },
+  {
+    "question": "Who pays for my home internet?",
+    "expected_fragment": "20 euros",
+    "source": "nordlicht-handbook.txt"
+  },
+  {
+    "question": "Can I take a cab home late at night after a business dinner?",
+    "expected_fragment": "after 22:00",
+    "source": "nordlicht-handbook.txt"
+  },
+  {
+    "question": "Can I take the train in first class?",
+    "expected_fragment": "four hours",
+    "source": "nordlicht-handbook.txt"
+  },
+  {
+    "question": "How do I book time on the GPU servers?",
+    "expected_fragment": "OPS-RES",
+    "source": "nordlicht-handbook.txt"
+  },
+  {
+    "question": "How much paternity leave do fathers get?",
+    "expected_fragment": "20 working days",
+    "source": "nordlicht-handbook.txt"
+  },
+  {
+    "question": "Which day is the paper discussion group?",
+    "expected_fragment": "Wednesday afternoon",
+    "source": "aihpi-home.txt"
+  },
+  {
+    "question": "How do the villains plan to get away from the building?",
+    "expected_fragment": "helicopter",
+    "source": "die-hard.txt"
+  },
+  {
+    "question": "What does John McClane find in the bag he takes from a terrorist?",
+    "expected_fragment": "C-4",
+    "source": "die-hard.txt"
+  }
+]

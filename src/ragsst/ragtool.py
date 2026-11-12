@@ -1,4 +1,4 @@
-"""Core RAGTool class — vector store management, retrieval, and LLM interaction."""
+"""Core RAGTool class: vector store management, retrieval, and LLM interaction."""
 
 import warnings
 
@@ -183,17 +183,14 @@ class RAGTool:
     ) -> None:
         """Ingest documents from *data_path* into a ChromaDB collection.
 
-                Files already present in the collection are skipped unless their
-                content has changed (when *consider_content* is True).
+        Files already present in the collection are skipped unless their
+        content has changed (when *consider_content* is True).
 
-                Args:
-                    data_path:            Directory containing .txt, .pdf, or .docx files.
-                    collection_name:      Target ChromaDB collection.
-                    skip_included_files:  Skip files whose name is already in the DB.
-                    consider_content:     Re-ingest files whose conteprint(f'{"":42}', '     '.join([f'S{i}' for i in range(len(sentences))]))
-        for i, s in enumerate(sentences):
-            sims = [f'{cos_sim(embeddings[i], embeddings[j]):.3f}' for j in range(len(sentences))]
-            print(f'S{i} {s[:38]:38}', '  '.join(sims))nt has changed.
+        Args:
+            data_path:            Directory containing .txt, .pdf, or .docx files.
+            collection_name:      Target ChromaDB collection.
+            skip_included_files:  Skip files whose name is already in the DB.
+            consider_content:     Re-ingest files whose content has changed.
         """
         logger.info(f"Documents path: {data_path}")
         self.set_collection(collection_name)
@@ -214,9 +211,9 @@ class RAGTool:
 
             if skip_included_files and file_name in sources:
                 if not consider_content or file_hash in files_hashes:
-                    logger.info(f"{file_name} already in vector DB — skipping.")
+                    logger.info(f"{file_name} already in vector DB, skipping.")
                     continue
-                logger.info(f"Content changed for {file_name} — updating.")
+                logger.info(f"Content changed for {file_name}, updating.")
                 self.collection.delete(where={"source": file_name})
 
             logger.info(f"Reading and splitting {file_name}...")
@@ -297,7 +294,7 @@ class RAGTool:
 
             elif keyword_search:
                 kw = self.kw_extractor.extract_keywords(query)[0][0]
-                logger.debug(f"No semantic results — falling back to keyword: {kw}")
+                logger.debug(f"No semantic results, falling back to keyword: {kw}")
                 query_result = self.collection.query(
                     query_texts="", n_results=nresults, where_document={"$contains": kw}
                 )
@@ -317,8 +314,9 @@ class RAGTool:
     def get_context_prompt(self, query: str, context: str) -> str:
         """Build a RAG prompt from a *query* and retrieved *context*."""
         return (
-            "Use the following context to answer the query at the end. "
-            "Keep the answer as concise as possible.\n"
+            "Use only the following context to answer the query at the end. "
+            "If the answer is not in the context, say \"I don't have that information.\" "
+            "Do not make up answers. Keep the answer as concise as possible.\n"
             f"Context:\n{context}"
             f"\nQuery:\n{query}"
         )
@@ -431,7 +429,7 @@ class RAGTool:
                 target = match or collections[0]
                 if match is None:
                     logger.warning(
-                        f"Collection '{collection_name}' not found — "
+                        f"Collection '{collection_name}' not found, "
                         f"loading '{target.name}' instead."
                     )
                 self.set_collection(
